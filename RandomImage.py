@@ -4,8 +4,8 @@ import random
 import argparse
 
 parser = argparse.ArgumentParser(description='Creates a totally random image, optionaly with a size.')
-parser.add_argument("--width", type=int, help='the width of the image')
-parser.add_argument("--height", type=int, help='the height of the image')
+parser.add_argument("-x", "--width", type=int, help='the width of the image')
+parser.add_argument("-y", "--height", type=int, help='the height of the image')
 
 args = parser.parse_args()
 if args.width:
