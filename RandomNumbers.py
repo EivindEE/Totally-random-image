@@ -1,24 +1,18 @@
 #!/usr/bin/env python
 import httplib
-
-#conn = httplib.HTTPConnection("www.random.org")
-#conn.request("GET","/integers/?num=10&min=1&max=6&col=1&base=10&format=plain&rnd=new")
-
-conn = httplib.HTTPConnection("www.example.org")
-conn.request("GET","/index")
-print dir(conn)
+import urllib2
 
 
-res = conn.getresponse()
-print res.status, res.reason
-data = res.read()
-array = []
-for num in data:
-	if num != '\n':
-		array.append(int(num))
+def randint(num):
+	httplib.HTTPConnection.debuglevel = 1  
+	request = urllib2.Request('http://www.random.org/integers/?num={0}&min=0&max=255&col=1&base=10&format=plain&rnd=new'.format(num))
+	request.add_header('User-Agent', 'Totally-random-image/1.0 +eivind.elseth@gmail.com')
+	opener = urllib2.build_opener() 
+	randstring = opener.open(request).read()
+
+	randarray = []
+	for item in randstring.split():
+		if item != '\n':
+			randarray.append(int(item))
 	
-print array
-print data
-
-conn.close()
-	
+	return randarray
